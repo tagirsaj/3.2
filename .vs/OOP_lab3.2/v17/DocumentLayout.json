@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\11\\source\\repos\\OOP_lab3.2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B63A3D82-C485-4DAA-9379-298FA3721AF0}|OOP_lab3.2\\OOP_lab3.2.csproj|c:\\users\\11\\source\\repos\\oop_lab3.2\\oop_lab3.2\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{B63A3D82-C485-4DAA-9379-298FA3721AF0}|OOP_lab3.2\\OOP_lab3.2.csproj|solutionrelative:oop_lab3.2\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B63A3D82-C485-4DAA-9379-298FA3721AF0}|OOP_lab3.2\\OOP_lab3.2.csproj|c:\\users\\11\\source\\repos\\oop_lab3.2\\oop_lab3.2\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B63A3D82-C485-4DAA-9379-298FA3721AF0}|OOP_lab3.2\\OOP_lab3.2.csproj|solutionrelative:oop_lab3.2\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B63A3D82-C485-4DAA-9379-298FA3721AF0}|OOP_lab3.2\\OOP_lab3.2.csproj|c:\\users\\11\\source\\repos\\oop_lab3.2\\oop_lab3.2\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{B63A3D82-C485-4DAA-9379-298FA3721AF0}|OOP_lab3.2\\OOP_lab3.2.csproj|solutionrelative:oop_lab3.2\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,11 +18,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\11\\source\\repos\\OOP_lab3.2\\OOP_lab3.2\\Form1.cs",
               "RelativeDocumentMoniker": "OOP_lab3.2\\Form1.cs",
@@ -35,7 +35,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
               "DocumentMoniker": "C:\\Users\\11\\source\\repos\\OOP_lab3.2\\OOP_lab3.2\\Form1.cs",
               "RelativeDocumentMoniker": "OOP_lab3.2\\Form1.cs",

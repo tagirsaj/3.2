@@ -121,7 +121,7 @@
             // lblCounter
             // 
             lblCounter.AutoSize = true;
-            lblCounter.Location = new Point(738, 421);
+            lblCounter.Location = new Point(568, 421);
             lblCounter.Name = "lblCounter";
             lblCounter.Size = new Size(50, 20);
             lblCounter.TabIndex = 9;
