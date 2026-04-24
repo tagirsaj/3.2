@@ -20,22 +20,37 @@ namespace OOP_lab3._2
 
         public void SetA(int value)
         {
-            if (a == value) return;
-            a = Clamp(value, 0, 100);
-            NotifyObservers();
+            int newA = Clamp(value, 0, 100);
+            if (newA == a) return;
+
+            a = newA;
+            // Разрешающее поведение: подтягиваем C и B, если A стало больше них
+            if (a > c) c = a;
+            if (a > b) b = a;
+
+            NotifyObservers(); // Одно уведомление на все изменения
         }
 
         public void SetB(int value)
         {
-            if (b == value) return;
-            b = Clamp(value, 0, 100);
+            // Ограничивающее поведение: B не может выйти за пределы A и C
+            int newB = Clamp(value, a, c);
+            if (newB == b) return;
+
+            b = newB;
             NotifyObservers();
         }
 
         public void SetC(int value)
         {
-            if (c == value) return;
-            c = Clamp(value, 0, 100);
+            int newC = Clamp(value, 0, 100);
+            if (newC == c) return;
+
+            c = newC;
+            // Разрешающее поведение: опускаем A и B, если C стало меньше них
+            if (c < a) a = c;
+            if (c < b) b = c;
+
             NotifyObservers();
         }
 
@@ -76,7 +91,7 @@ namespace OOP_lab3._2
 
         private void Model_ModelChanged(object sender, EventArgs e)
         {
-            isUpdating = true; 
+            isUpdating = true;
 
             textBoxA.Text = model.A.ToString();
             numA.Value = model.A;
