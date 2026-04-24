@@ -1,20 +1,92 @@
 using System;
+using System.IO;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace OOP_lab3._2
 {
-    // ... (Класс Model полностью идентичен коду из Этапа 2) ...
     public class Model
     {
         private int a, b, c;
+        private readonly string saveFile = "model_data.txt";
         public event EventHandler ModelChanged;
-        public int A => a; public int B => b; public int C => c;
-        public Model() { a = 0; b = 50; c = 100; }
-        public void SetA(int value) { int newA = Clamp(value, 0, 100); if (newA == a) return; a = newA; if (a > c) c = a; if (a > b) b = a; NotifyObservers(); }
-        public void SetB(int value) { int newB = Clamp(value, a, c); if (newB == b) return; b = newB; NotifyObservers(); }
-        public void SetC(int value) { int newC = Clamp(value, 0, 100); if (newC == c) return; c = newC; if (c < a) a = c; if (c < b) b = c; NotifyObservers(); }
-        protected int Clamp(int value, int min, int max) { if (value < min) return min; if (value > max) return max; return value; }
-        protected void NotifyObservers() { ModelChanged?.Invoke(this, EventArgs.Empty); }
+
+        public int A => a;
+        public int B => b;
+        public int C => c;
+
+        public Model()
+        {
+            a = 0; b = 50; c = 100;
+        }
+
+        public void Load()
+        {
+            if (File.Exists(saveFile))
+            {
+                try
+                {
+                    string[] parts = File.ReadAllText(saveFile).Split(',');
+                    if (parts.Length == 3 &&
+                        int.TryParse(parts[0], out int loadedA) &&
+                        int.TryParse(parts[1], out int loadedB) &&
+                        int.TryParse(parts[2], out int loadedC))
+                    {
+                        a = Clamp(loadedA, 0, 100);
+                        c = Clamp(loadedC, 0, 100);
+                        b = Clamp(loadedB, a, c);
+                    }
+                }
+                catch { /* Оставляем значения по умолчанию при сбое */ }
+            }
+            NotifyObservers(); // Одно уведомление при старте [cite: 87]
+        }
+
+        public void Save()
+        {
+            try { File.WriteAllText(saveFile, $"{a},{b},{c}"); }
+            catch { /* Игнорируем ошибки записи */ }
+        }
+
+        public void SetA(int value)
+        {
+            int newA = Clamp(value, 0, 100);
+            if (newA == a) return;
+            a = newA;
+            if (a > c) c = a;
+            if (a > b) b = a;
+            NotifyObservers();
+        }
+
+        public void SetB(int value)
+        {
+            int newB = Clamp(value, a, c);
+            if (newB == b) return;
+            b = newB;
+            NotifyObservers();
+        }
+
+        public void SetC(int value)
+        {
+            int newC = Clamp(value, 0, 100);
+            if (newC == c) return;
+            c = newC;
+            if (c < a) a = c;
+            if (c < b) b = c;
+            NotifyObservers();
+        }
+
+        protected int Clamp(int value, int min, int max)
+        {
+            if (value < min) return min;
+            if (value > max) return max;
+            return value;
+        }
+
+        protected void NotifyObservers()
+        {
+            ModelChanged?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public partial class Form1 : Form
@@ -28,15 +100,14 @@ namespace OOP_lab3._2
             model = new Model();
             model.ModelChanged += Model_ModelChanged;
 
-            this.Load += (s, e) => Model_ModelChanged(this, EventArgs.Empty);
+            // Вызываем Load() модели вместо принудительного обновления
+            this.Load += (s, e) => model.Load();
+            this.FormClosing += (s, e) => model.Save(); // Сохранение при закрытии
 
-            // Обработка текстовых полей (потеря фокуса и нажатие Enter)
             textBoxA.Leave += (s, e) => UpdateModelFromTextBoxA();
             textBoxA.KeyDown += (s, e) => { if (e.KeyCode == Keys.Enter) UpdateModelFromTextBoxA(); };
-
             textBoxB.Leave += (s, e) => UpdateModelFromTextBoxB();
             textBoxB.KeyDown += (s, e) => { if (e.KeyCode == Keys.Enter) UpdateModelFromTextBoxB(); };
-
             textBoxC.Leave += (s, e) => UpdateModelFromTextBoxC();
             textBoxC.KeyDown += (s, e) => { if (e.KeyCode == Keys.Enter) UpdateModelFromTextBoxC(); };
 
@@ -53,7 +124,7 @@ namespace OOP_lab3._2
         {
             if (isUpdating) return;
             if (int.TryParse(textBoxA.Text, out int result)) model.SetA(result);
-            else textBoxA.Text = model.A.ToString(); // Откат при неверном вводе
+            else textBoxA.Text = model.A.ToString();
         }
 
         private void UpdateModelFromTextBoxB()
